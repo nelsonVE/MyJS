@@ -1,0 +1,45 @@
+NAME: myjs
+
+TABLES:
+
+user
+-id AUTOINCREMENT PRIMARY_KEY
+-name VARCHAR(32)
+-username VARCHAR(16)
+-email VARCHAR(16)
+-password ENCRYPTED - VARCHAR (?)
+-salt ENCRYPTED **OPTIONAL**
+-gender VARCHAR(16)
+-verified BOOLEAN
+-avatar_url VARCHAR(128)
+
+role
+- id AUTOINCREMENT PRIMARY_KEY
+- name VARCHAR(32)
+- description(256)
+
+user_role
+- id AUTOINCREMENT PRIMARY_KEY
+- user_id FK_USERID
+- role_id FK_ROLE
+
+category
+- id AUTOINCREMENT PRIMARY_KEY
+- name VARCHAR(64)
+- description VARCHAR(256)
+- parent_id FK_CATEGORY
+
+forum
+- id AUTOINCREMENT PRIMARY_KEY
+- name VARCHAR(64)
+- description VARCHAR(256)
+- category_id FK_CATEGORY
+- parent_id FK_FORUM
+
+post
+- id AUTOINCREMENT PRIMARY_KEY
+- posted_in DATE
+- posted_by FK_USERID
+- title VARCHAR(128)
+- content VARCHAR(2048)
+- forum_id FK_FORUM
