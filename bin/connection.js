@@ -1,19 +1,19 @@
-var mysql = require('mysql');
+const Sequelize = require('sequelize')
 require('dotenv').config();
 
-var connection = mysql.createConnection({
-    host    : process.env.HOST,
-    database: process.env.DB,
-    user    : process.env.USUARIO,
-    password: process.env.PASS,
-  });
-  
-  console.log('Iniciando conexión con el servidor MySQL en '+process.env.HOST+'.')
-  connection.connect((err) => {
-    if(err){
-      console.error('Ha ocurrido un error al intentar conectar con la base de datos: '+err.stack);
-      return;
-    }
-  
-    console.log('Conectado a la base de datos exitósamente. Thread ID: '+connection.threadId);
-  });
+const conn = new Sequelize(process.env.DB, process.env.USUARIO, process.env.PASS, {
+  host: process.env.HOST,
+  dialect: process.env.DRIVER
+})
+
+conn.authenticate()
+    .then(() => {
+        console.log('Connected to '+process.env.HOST+' with '+process.env.USUARIO)
+      }
+    )
+    .catch((err) => {
+        console.error('Unable to connect to '+process.env.HOST+'. Error: ', err)
+      }
+    )
+
+module.exports = conn

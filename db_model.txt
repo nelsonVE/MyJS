@@ -2,16 +2,27 @@ NAME: myjs
 
 TABLES:
 
+country
+-id AUTOINCREMENT PRIMARY_KEY
+-name VARCHAR(32)
+
+gender
+-id AUTOINCREMENT PRIMARY_KEY
+-name VARCHAR(32)
+
 user
 -id AUTOINCREMENT PRIMARY_KEY
 -name VARCHAR(32)
 -username VARCHAR(16)
--email VARCHAR(16)
--password ENCRYPTED - VARCHAR (?)
+-email VARCHAR(32)
+-password BINARY(60)
 -salt ENCRYPTED **OPTIONAL**
--gender VARCHAR(16)
+-gender FK_GENDER
 -verified BOOLEAN
 -avatar_url VARCHAR(128)
+-country FK_COUNTRY
+-birthdate DATE
+-signup_at DATE TIMESTAMP
 
 role
 - id AUTOINCREMENT PRIMARY_KEY
