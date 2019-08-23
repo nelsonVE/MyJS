@@ -1,5 +1,7 @@
 var Sequelize = require('sequelize')
 var sequelize = require('../bin/connection')
+var Gender = require('./Gender')
+var Country = require('./Country')
 
 const Model = Sequelize.Model
 
@@ -33,18 +35,17 @@ User.init({
     avatar_url: {
         type: Sequelize.STRING,
         allowNull: true
-    },
-    gender_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    country_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
     }
 },  {
     sequelize: sequelize,
-    modelName: 'user'
+    modelName: 'user',
+    underscored: true
 })
+
+User.belongsTo(Gender)
+User.belongsTo(Country)
+
+Country.hasMany(User)
+Gender.hasMany(User)
 
 module.exports = User

@@ -1,5 +1,7 @@
 var express = require('express');
-var user = require('../models/userModule')
+var User = require('../models/User')
+var Country = require('../models/Country')
+var Gender = require('../models/Gender')
 var router = express.Router();
 
 /* GET home page. */
@@ -8,24 +10,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/step-one', function(req, res, next) {
-  user.create({
-    name: 'Nelson',
-    username: 'nelson8390',
-    password: '123456789abcdef',
-    gender: 1,
-    country: 10,
-    birthdate: '03/11/1996',
-    email: 'nelsonmggomes@gmail.com',
-    verified: false
-  })
-
-  user.sync()
-  res.render('signup');
-});
-
-router.get('/test', function(req, res, next) {
-  user.sync()
-  res.send('Usuario insertado ¡?¡?¡?¡?¡')
+  res.render('signup', {
+    genders: Gender.findAll(),
+    contries: Countries.findAll()
+  });
 });
 
 module.exports = router;
