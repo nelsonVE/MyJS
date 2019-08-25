@@ -1,7 +1,7 @@
 var express = require('express');
-var User = require('../models/User')
-var Country = require('../models/Country')
-var Gender = require('../models/Gender')
+var userController = require('../controllers/userController')
+var countryController = require('../controllers/countryController')
+var genderController = require('../controllers/genderController')
 var router = express.Router();
 
 /* GET home page. */
@@ -10,9 +10,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/step-one', function(req, res, next) {
+  
   res.render('signup', {
-    genders: Gender.findAll(),
-    contries: Countries.findAll()
+    countries: countryController.get_all_countries,
+    genders: genderController.get_all_genders
   });
 });
 
