@@ -14,7 +14,7 @@ User.init({
     },
     name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     email: {
         type: Sequelize.STRING,
@@ -26,7 +26,7 @@ User.init({
     },
     birthdate: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true
     },
     verified: {
         type: Sequelize.BOOLEAN,
