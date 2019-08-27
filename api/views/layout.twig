@@ -39,12 +39,28 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
+        {% if user_logged %}
+        <ul class="navbar-nav mr-4">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ username }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="#">Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Logout</a>
+            </div>
+          </li>
+        </ul>
+        {% else %}
         <ul class="navbar-nav mr-4">
           <li class="nav-item">
-            <a class="nav-link" href="/login">Log-in</a>
+            <a class="nav-link" href="/login/">Log-in</a>
           </li>
         </ul>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick="javascript:window.location.href='/signup/'">Signup</button>
+        {% endif %}
       </div>
     </nav>
     {% block body %}{% endblock %}

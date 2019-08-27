@@ -1,11 +1,15 @@
 const createError = require('http-errors')
 const express = require('express')
+const session = require('express-session')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const indexRouter = require('./api/routes/index')
 const usersRouter = require('./api/routes/users')
 const signupRouter = require('./api/routes/signup')
+const loginRouter = require('./api/routes/login')
+var authMiddleware = require('./api/middleware/authMiddleware')
+require('dotenv').config();
 
 var app = express()
 
@@ -21,10 +25,16 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(session({
+  secret: process.env.SESSION_KEY,
+  resave: true,
+  saveUninitialized: true
+}))
 
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
-app.use('/signup', signupRouter)
+app.use('/users', authMiddleware.check_login, usersRouter)
+app.use('/signup', authMiddleware.check_login, signupRouter)
+app.use('/login', authMiddleware.check_login, loginRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
