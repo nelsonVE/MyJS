@@ -27,10 +27,10 @@ async function createUser(username, password, email, gender, country){
         username: username,
         password: bcrypt.hashSync(password, 10),
         email: email,
-        gender_id: gender,
-        country_id: country,
         verified: false
-    }).then(() => {
+    }).then((user) => {
+        user.setCountry(country) // Associates the created user with the selected country
+        user.setGender(gender)
         console.log('User '+username+' created succesfully')
     }).catch(err => {
         console.error('An error has ocurred: '+err)
