@@ -1,9 +1,5 @@
 {% extends 'layout.twig' %}
 
-{% set user_logged = (session.username) %}
-{% set username = session.username %}
-
 {% block body %}
-  <h1>{{title}}</h1>
-  <p>Bienvenido a {{title}}</p>
+{{ dump(session.username) }}
 {% endblock %}
