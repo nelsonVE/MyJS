@@ -1,13 +1,15 @@
 const User = require('../models/User')
+const UserRole = require('../models/UserRole')
+const Role = require('../models/Role')
 const bcrypt = require('bcrypt')
 
-exports.check_login = (req, res) => {
+exports.check_login = async (req, res) => {
     var errors = []
     User.findOne({
         where: {
             username: req.body.username
         }
-    }).then((user) => {
+    }).then(async (user) => {
         if(!user)
             errors.push('That username doesn\'t exists in our database')
         
@@ -19,10 +21,21 @@ exports.check_login = (req, res) => {
                 errors
             })
         
-        session = req.session
-        session.username = user.username
-        session.userid = user.id
-        res.redirect('/')
+        Role.max('level', {
+            include: [{
+                model: User,
+                where:{
+                    id: user.id
+                }
+            }]
+        }).then(role => {
+            console.log(`» [LOGIN] User ${user.username} has logged in with level ${role}`)
+            session = req.session
+            session.username = user.username
+            session.userid = user.id
+            session.level = role
+            res.redirect('/')
+        })
     })
 }
 

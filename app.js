@@ -9,6 +9,7 @@ const usersRouter = require('./api/routes/users')
 const signupRouter = require('./api/routes/signup')
 const loginRouter = require('./api/routes/login')
 const logoutRouter = require('./api/routes/logout')
+const adminRouter = require('./api/routes/admin')
 var authMiddleware = require('./api/middleware/authMiddleware')
 require('dotenv').config();
 
@@ -42,6 +43,7 @@ app.use('/users', authMiddleware.check_login, usersRouter)
 app.use('/signup', authMiddleware.check_login, signupRouter)
 app.use('/login', authMiddleware.check_login, loginRouter)
 app.use('/logout', logoutRouter)
+app.use('/myjs-admin', adminRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
