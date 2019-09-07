@@ -43,7 +43,7 @@ app.use('/users', authMiddleware.check_login, usersRouter)
 app.use('/signup', authMiddleware.check_login, signupRouter)
 app.use('/login', authMiddleware.check_login, loginRouter)
 app.use('/logout', logoutRouter)
-app.use('/myjs-admin', adminRouter)
+app.use('/myjs-admin', authMiddleware.check_adminlogin, adminRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
