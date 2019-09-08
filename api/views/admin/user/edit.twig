@@ -1,0 +1,42 @@
+{% extends '../layout.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center p-5 mt-5" style="background-color: #F4F4F4;">
+            <h4>User edit ID:{{ user.id }}</h4>
+            <hr>
+            <form method="POST" action="save">
+                <input type="hidden" id="_id" name="_id" value="{{ user.id }}">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" value="{{ user.username }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="name" class="form-control" id="name" name="name" placeholder="Name" value="{{ user.name }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ user.email }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="verified">User status</label>
+                    <select class="form-control" id="verified" name="verified" required>
+                        {% if user.verified == true %}
+                        <option value=1 selected>Verified</option>
+                        <option value=0>Not verified</option>
+                        {% else %}
+                        <option value=0 selected>Not verified</option>
+                        <option value=1>Verified</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Edit user</button>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock %}

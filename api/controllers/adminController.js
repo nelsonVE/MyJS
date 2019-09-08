@@ -11,6 +11,34 @@ exports.view_users = (req, res, next) => {
         })
 }
 
+exports.view_user = (req, res, next) => {
+    User.findByPk(req.params.id)
+        .then(user => {
+            res.render('admin/user/edit', {
+                user
+            })
+        })
+}
+
+exports.save_user = (req, res, next) => {
+    User.update({
+        name: req.body.name,
+        username: req.body.username,
+        email: req.body.email,
+        verified: req.body.verified
+    },{
+        where:{
+            id: req.body._id
+        }
+    }).then(updated => {
+        if(updated == 1){
+            return res.redirect('..')
+        } else {
+            return res.redirect('..')
+        }
+    })
+}
+
 exports.delete_user = (req, res, next) => {
     if(req.body._token !== process.env.API_KEY){
         console.log('ERROR: THE API KEY DOESNT MATCH')
