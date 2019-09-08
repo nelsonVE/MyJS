@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{ title }} - Admin panel</title>
     <link rel='stylesheet' href='/css/bootstrap.min.css'/>
+    <link rel='stylesheet' href='/css/all.css'/>
   </head>
   <body>
     <div class="container-fluid p-3">
@@ -21,10 +22,10 @@
             <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="forums">Forums</a>
+            <a class="nav-link" href="forums/">Forums</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="users">Users</a>
+            <a class="nav-link" href="users/">Users</a>
           </li>
         </ul>
         <ul class="navbar-nav mr-4">
@@ -45,5 +46,10 @@
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
   </body>
 </html>

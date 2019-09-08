@@ -1,0 +1,43 @@
+{% extends '../layout.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Created at</th>
+        <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.createdAt }}</td>
+            <td>
+                <form class="form-inline" method="POST" action="delete">
+                <input type="hidden" id="_token" name="_token" value="{{ token }}">
+                <input type="hidden" id="_id" name="_id" value="{{ user.id }}">
+                <div class="form-group mb-2">
+                    <button class="btn btn-outline-success" type="button" onClick="javascript:window.location.href='edit/{{ user.id }}'" data-toggle="tooltip" data-placement="top" title="Edit user">
+                        <i class="fas fa-user-edit"></i>
+                    </button>
+                </div>
+                <div class="form-group mb-2">
+                    <button class="btn btn-outline-success" type="submit" data-toggle="tooltip" data-placement="top" title="Delete user">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}
