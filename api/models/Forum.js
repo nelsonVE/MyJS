@@ -22,10 +22,9 @@ Forum.init({
 })
 
 Forum.belongsTo(Category)
-Forum.belongsTo(Forum)
 
 Category.hasMany(Forum)
-Forum.hasMany(Forum)
+Forum.hasMany(Forum, {as: 'Subforum'})
 
 Forum.sync()
 

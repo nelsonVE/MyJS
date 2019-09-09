@@ -1,4 +1,6 @@
 const User = require('../models/User')
+const forumController = require('../controllers/forumController')
+const categoryController = require('../controllers/categoryController')
 require('dotenv').config()
 
 exports.view_users = (req, res, next) => {
@@ -64,5 +66,12 @@ exports.delete_user = (req, res, next) => {
             console.log(`[INFO] » The user id ${req.body._id} has been deleted successfully`)
             return res.redirect('.')
         }
+    })
+}
+
+exports.view_forums = async (req, res, next) => {
+    res.render('admin/forum/view', {
+        categories: categoryController.get_all_categories,
+        forums: forumController.get_all_forums
     })
 }

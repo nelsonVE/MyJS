@@ -1,0 +1,78 @@
+{% extends '../layout.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    {% for category in categories %}
+    <table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+        <th scope="row">{{ category.name }}</th>
+        <th scope="col"></th>
+        <th scope="col">
+            <div class="form-group mb-2">
+                <button class="btn btn-outline-success" type="button" onClick="javascript:window.location.href='edit/{{ category.id }}'" data-toggle="tooltip" data-placement="top" title="Edit category">
+                    <i class="fas fa-user-edit"></i>
+                </button>
+            </div>
+            <div class="form-group mb-2">
+                <button class="btn btn-outline-success" type="submit" data-toggle="tooltip" data-placement="top" title="Delete category">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for forum in forums %}
+            {% if not forum.forumId and forum.categoryId == category.id %}
+            <tr>
+                <th scope="row">{{ forum.name }}</th>
+                <th scope="col"></th>
+                <td>
+                    <form class="form-inline" method="POST" action="delete">
+                    <input type="hidden" id="_token" name="_token" value="{{ token }}">
+                    <input type="hidden" id="_id" name="_id" value="{{ forum.id }}">
+                    <div class="form-group mb-2">
+                        <button class="btn btn-outline-success" type="button" onClick="javascript:window.location.href='edit/{{ forum.id }}'" data-toggle="tooltip" data-placement="top" title="Edit forum">
+                            <i class="fas fa-user-edit"></i>
+                        </button>
+                    </div>
+                    <div class="form-group mb-2">
+                        <button class="btn btn-outline-success" type="submit" data-toggle="tooltip" data-placement="top" title="Delete forum">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    </form>
+                </td>
+            </tr>
+            {% for subforum in forums %}
+                {% if subforum.forumId == forum.id %}
+                <tr>
+                    <th scope="row">&emsp;{{ subforum.name }}</th>
+                    <th scope="col"></th>
+                    <td>
+                        <form class="form-inline" method="POST" action="delete">
+                        <input type="hidden" id="_token" name="_token" value="{{ token }}">
+                        <input type="hidden" id="_id" name="_id" value="{{ subforum.id }}">
+                        <div class="form-group mb-2">
+                            <button class="btn btn-outline-success" type="button" onClick="javascript:window.location.href='edit/{{ subforum.id }}'" data-toggle="tooltip" data-placement="top" title="Edit subforum">
+                                <i class="fas fa-user-edit"></i>
+                            </button>
+                        </div>
+                        <div class="form-group mb-2">
+                            <button class="btn btn-outline-success" type="submit" data-toggle="tooltip" data-placement="top" title="Delete subforum">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        </form>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </tbody>
+    </table>
+    {% endfor %}
+</div>
+{% endblock %}
