@@ -18,8 +18,8 @@
             {% endif %}
             <hr>
             <form method="POST" action="save">
-                <input type="hidden" id="_id" name="_name" value="{{ forum.id }}">
-                <input type="hidden" id="_type" name="_name" value="{{ type }}">
+                <input type="hidden" id="_id" name="_id" value="{{ forum.id }}">
+                <input type="hidden" id="_type" name="_type" value="{{ type }}">
                 <div class="form-group">
                     <label for="name">Forum/Category name</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ forum.name }}" required>
@@ -28,18 +28,24 @@
                     <label for="description">Forum/Category description</label>
                     <input type="textarea" class="form-control" id="description" name="description" placeholder="Description" value="{{ forum.description }}">
                 </div>
+                {% if type == 1 %}
                 <div class="form-group">
-                    <label for="type">Select type</label>
-                    <select class="form-control" id="type" name="type" required>
-                        {% if type == 1 %}
-                        <option value=1 selected>Forum</option>
-                        <option value=0>Category</option>
-                        {% else %}
-                        <option value=0 selected>Category</option>
-                        <option value=1>Forum</option>
-                        {% endif %}
+                    <label for="category">Select category</label>
+                    <select class="form-control" id="category" name="category" required>
+                    {% if categories %}
+                        {% for category in categories %}
+                            {% if category.id == forum.categoryId %}
+                            <option value={{ category.id }} selected>{{ category.name }}</option>
+                            {% else %}
+                            <option value={{ category.id }}>{{ category.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                    <option value=0 selected>There's no categories availables</option>
+                    {% endif %}
                     </select>
                 </div>
+                {% endif %}
                 <button type="submit" class="btn btn-primary">Edit</button>
             </form>
         </div>
