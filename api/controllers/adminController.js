@@ -1,4 +1,6 @@
 const User = require('../models/User')
+const Forum = require('../models/Forum')
+const Category = require('../models/Category')
 const forumController = require('../controllers/forumController')
 const categoryController = require('../controllers/categoryController')
 require('dotenv').config()
@@ -70,8 +72,38 @@ exports.delete_user = (req, res, next) => {
 }
 
 exports.view_forums = async (req, res, next) => {
+    var categories = await categoryController.get_all_categories
+    var forums = await forumController.get_all_forums
     res.render('admin/forum/view', {
-        categories: categoryController.get_all_categories,
-        forums: forumController.get_all_forums
+        categories,
+        forums
     })
+}
+
+exports.create_forum_view = (req, res, next) => {
+    Category.findAll().then(categories => {
+        return res.render('admin/forum/create', {
+            categories
+        })
+    })
+}
+
+exports.edit_forum = (req, res, next) => {
+    if(req.query.type == 1){ // 1 = Type: forum
+        Forum.findByPk(req.query.id).then(forum => {
+            res.render('admin/forum/edit', {
+                forum,
+                type: req.query.type
+            })
+        })
+    }
+    else // 0 = Type: Category
+    {
+        Category.findByPk(req.query.id).then(category => {
+            res.render('admin/forum/edit', {
+                forum: category,
+                type: req.query.type
+            })
+        })
+    }
 }

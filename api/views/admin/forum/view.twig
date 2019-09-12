@@ -10,7 +10,7 @@
         <th scope="col"></th>
         <th scope="col">
             <div class="form-group mb-2">
-                <button class="btn btn-outline-success" type="button" onClick="javascript:window.location.href='edit/{{ category.id }}'" data-toggle="tooltip" data-placement="top" title="Edit category">
+                <button class="btn btn-outline-success" type="button" onClick="javascript:window.location.href='edit?id={{ category.id }}&type=0'" data-toggle="tooltip" data-placement="top" title="Edit category">
                     <i class="fas fa-user-edit"></i>
                 </button>
             </div>
@@ -33,7 +33,7 @@
                     <input type="hidden" id="_token" name="_token" value="{{ token }}">
                     <input type="hidden" id="_id" name="_id" value="{{ forum.id }}">
                     <div class="form-group mb-2">
-                        <button class="btn btn-outline-success" type="button" onClick="javascript:window.location.href='edit/{{ forum.id }}'" data-toggle="tooltip" data-placement="top" title="Edit forum">
+                        <button class="btn btn-outline-success" type="button" onClick="javascript:window.location.href='edit?id={{ forum.id }}&type=1'" data-toggle="tooltip" data-placement="top" title="Edit forum">
                             <i class="fas fa-user-edit"></i>
                         </button>
                     </div>

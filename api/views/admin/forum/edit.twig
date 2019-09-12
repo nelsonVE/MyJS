@@ -1,0 +1,49 @@
+{% extends '../layout.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center p-5 mt-5" style="background-color: #F4F4F4;">
+            <h4>Edit forum/category</h4>
+            {% if errors %}
+            <div class="alert alert-danger" role="alert">
+                <br>
+                <ul>
+                {% for error in errors %}
+                <li>{{error}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <hr>
+            <form method="POST" action="save">
+                <input type="hidden" id="_id" name="_name" value="{{ forum.id }}">
+                <input type="hidden" id="_type" name="_name" value="{{ type }}">
+                <div class="form-group">
+                    <label for="name">Forum/Category name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ forum.name }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Forum/Category description</label>
+                    <input type="textarea" class="form-control" id="description" name="description" placeholder="Description" value="{{ forum.description }}">
+                </div>
+                <div class="form-group">
+                    <label for="type">Select type</label>
+                    <select class="form-control" id="type" name="type" required>
+                        {% if type == 1 %}
+                        <option value=1 selected>Forum</option>
+                        <option value=0>Category</option>
+                        {% else %}
+                        <option value=0 selected>Category</option>
+                        <option value=1>Forum</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Edit</button>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock %}
