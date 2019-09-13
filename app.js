@@ -11,7 +11,6 @@ const loginRouter = require('./api/routes/login')
 const logoutRouter = require('./api/routes/logout')
 const adminRouter = require('./api/routes/admin')
 var authMiddleware = require('./api/middleware/authMiddleware')
-const twig = require('twig')
 require('dotenv').config()
 
 var app = express()
@@ -19,11 +18,9 @@ var app = express()
 // view engine setup
 app.set('views', path.join(__dirname, '/api/views'))
 app.set('view engine', 'twig')
-app.set('view cache', false)
 app.set("twig options", {
   allow_async: true
 })
-twig.cache(false)
 
 app.use(logger('dev'))
 app.use(express.json())

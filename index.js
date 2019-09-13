@@ -1,7 +1,6 @@
 var app = require('./app.js')
+require('dotenv').config()
 
-var puerto = 3000
-
-app.listen(puerto, () => {
-    console.log("Server started at port: "+puerto)
+app.listen(process.env.PORT, () => {
+    console.log("MyJS Forum v1.0 BETA started at port: "+process.env.PORT)
 })

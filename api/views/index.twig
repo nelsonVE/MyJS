@@ -1,5 +1,74 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-{{ dump(session.username) }}
+
+<div class="container mt-5" style="border: 1px solid #d7d7d7;">
+    <table class="table table-hover">
+    <thead class="table-borderless">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    {% for category in categories %}
+        <tr class="bg-dark text-white">
+            <td>{{ category.name }}</td>
+            <td>Posts</td>
+            <td>Last Post</td>
+        </tr>
+        {% for forum in forums %}
+            <tr>
+            {% if not forum.forumId and forum.categoryId == category.id %}
+
+                <td>{{ forum.name }}</td>
+                {% if forum.post_count > 0 %}
+                <td>{{ forum.post_count }}</td>
+                {% else %}
+                <td>0</td>
+                {% endif %}
+                {% if not forum.post_count %}
+                <td style="font-size: 12px;">
+                    There's no posts to show
+                </td>
+                {% else %}
+                <td style="font-size: 12px;">
+                    Last post: {{ forum.last_post_title }} <br>
+                    On: {{ forum.last_post_date }} <br>
+                    By: {{ forum.last_post_username }} <br>
+                </td>
+                {% endif %}
+            </tr>
+            {% for subforum in forums %}
+                {% if subforum.forumId == forum.id %}
+                <tr>
+                    <td>&emsp;{{ subforum.name }}</td>
+                    {% if subforum.post_count > 0 %}
+                    <td>{{ subforum.post_count }}</td>
+                    {% else %}
+                    <td>0</td>
+                    {% endif %}
+                    {% if not subforum.post_count %}
+                    <td style="font-size: 12px;">
+                        There's no posts to show
+                    </td>
+                    {% else %}
+                    <td style="font-size: 12px;">
+                        Last post: {{ subforum.last_post_title }} <br>
+                        On: {{ subforum.last_post_date }} <br>
+                        By: {{ subforum.last_post_username }} <br>
+                    </td>
+                    {% endif %}
+                
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    </tr>
+    </tbody>
+    </table>
+</div>
 {% endblock %}

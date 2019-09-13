@@ -1,9 +1,8 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+const forumController = require('../controllers/forumController')
+var router = express.Router()
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Expressh' });
-});
+router.get('/', forumController.view_forums)
 
-module.exports = router;
+module.exports = router
