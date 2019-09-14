@@ -1,0 +1,26 @@
+{% extends '../../layout.twig' %}
+
+{% block body %}
+<div class="container-fluid mt-5">
+    <table class="table">
+    <thead class="thead-dark">
+        <tr>
+        <th scope="col">{{ post.title }}</th>
+        <th class="text-center" scope="col">Posted by</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>
+        <small>{{ post.posted_in }}</small><br><br>
+        {{ post.content }}
+        </td>
+        <td class="text-center">
+        <h4>{{ user.username }}</h4>
+        <small>{{ user_posts }}</small>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+{% endblock %}

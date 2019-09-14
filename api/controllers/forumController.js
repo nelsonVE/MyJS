@@ -2,6 +2,7 @@ const userController = require('../controllers/userController')
 const Forum = require('../models/Forum')
 const Post = require('../models/Post')
 const Category = require('../models/Category')
+const postController = require('../controllers/postController')
 
 async function get_forum_post_count(forumid){
     return Post.count({
@@ -101,4 +102,40 @@ exports.create_forum = (req, res, next) => {
             console.error(`An error has ocurred in forumController on create_forum: ${err}`)
         })
     }
+}
+
+exports.view_posts = async (req, res, next) => {
+    const posts = await postController.get_forum_posts(req.query.id, req.query.page)
+    const users = await userController.get_all_users()
+    const max_posts_per_page = 10
+    const posts_count = await postController.get_posts_count(req.query.id)
+
+    var pages = Math.floor(posts_count / max_posts_per_page)
+
+    if((posts_count % max_posts_per_page) > 0){ // check if we need another page
+        pages += 1 // if we have 12 posts, we'll need 2 pages, one with 10 and another with 2
+    }
+
+    return res.render('forum/view', {
+        posts,
+        users,
+        pages,
+        actual_page: Number(req.query.page)
+    })
+}
+
+exports.view_post = async (req, res, next) => {
+    const post = await postController.get_post(req.query.id)
+
+    if(!post)
+        return res.redirect('/')
+    
+    const user = await userController.get_user_by_id(post.userId)
+    const user_posts = await postController.get_user_post_count(post.userId)
+
+    return res.render('forum/post/view', {
+        post,
+        user,
+        user_posts
+    })
 }

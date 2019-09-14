@@ -20,7 +20,7 @@
             <td>Last Post</td>
         </tr>
         {% for forum in forums %}
-            <tr>
+            <tr onClick="javascript:window.location.href='forum/view?id={{ forum.id }}&page=1'" style="cursor: pointer;">
             {% if not forum.forumId and forum.categoryId == category.id %}
 
                 <td>{{ forum.name }}</td>
@@ -43,7 +43,7 @@
             </tr>
             {% for subforum in forums %}
                 {% if subforum.forumId == forum.id %}
-                <tr>
+                <tr style="cursor: pointer;">
                     <td>&emsp;{{ subforum.name }}</td>
                     {% if subforum.post_count > 0 %}
                     <td>{{ subforum.post_count }}</td>

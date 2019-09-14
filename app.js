@@ -4,14 +4,19 @@ const session = require('express-session')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
+require('dotenv').config()
+
+// -> Routes
 const indexRouter = require('./api/routes/index')
 const usersRouter = require('./api/routes/users')
 const signupRouter = require('./api/routes/signup')
 const loginRouter = require('./api/routes/login')
 const logoutRouter = require('./api/routes/logout')
 const adminRouter = require('./api/routes/admin')
+const forumRouter = require('./api/routes/forums')
+
+// -> Middleware
 var authMiddleware = require('./api/middleware/authMiddleware')
-require('dotenv').config()
 
 var app = express()
 
@@ -44,6 +49,7 @@ app.use('/signup', authMiddleware.check_login, signupRouter)
 app.use('/login', authMiddleware.check_login, loginRouter)
 app.use('/logout', logoutRouter)
 app.use('/myjs-admin', authMiddleware.check_adminlogin, authMiddleware.token_key, adminRouter)
+app.use('/forum', forumRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
