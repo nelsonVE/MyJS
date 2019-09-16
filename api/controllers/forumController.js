@@ -52,7 +52,7 @@ exports.view_forums = async (req, res, next) => {
                     post_return.push(forum_temp)
                 }
                 console.log(post_return)
-                res.render('index', {
+                res.render('index/index', {
                     forums: post_return,
                     categories
                 })

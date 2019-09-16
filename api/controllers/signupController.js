@@ -38,14 +38,14 @@ async function createUser(username, password, email, gender, country){
 }
 
 exports.signup = async (req, res, next) => {
-    res.render('signup', {
+    res.render('login/signup', {
         countries: countryController.get_all_countries,
         genders: genderController.get_all_genders
     })
 }
 
 exports.successful_signup = (req, res, next) => {
-    res.render('successful')
+    res.render('login/successful')
 }
 
 exports.verify_register = async (req, res) => {
@@ -75,7 +75,7 @@ exports.verify_register = async (req, res) => {
 
     console.log(errors)
     if(errors.length > 0){
-        return res.render('signup', {
+        return res.render('login/signup', {
             errors,
             countries: countryController.get_all_countries,
             genders: genderController.get_all_genders
@@ -84,6 +84,6 @@ exports.verify_register = async (req, res) => {
 
     createUser(req.body.username, req.body.password, req.body.email, req.body.gender, req.body.country).then(() => {
         // Send confirmation e-mail here.
-        res.redirect('successful')
+        res.redirect('login/successful')
     })
 }

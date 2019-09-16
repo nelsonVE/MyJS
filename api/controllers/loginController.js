@@ -17,7 +17,7 @@ exports.check_login = async (req, res) => {
             errors.push('The username/password is incorrect')
 
         if(errors.length > 0)
-            return res.render('login', {
+            return res.render('login/login', {
                 errors
             })
         
